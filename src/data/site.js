@@ -3,259 +3,246 @@
 //  Edit text, add projects, or swap videos here. No component
 //  code needs to change.
 //
-//  Video IDs: the part after "watch?v=" in a YouTube URL.
-//  e.g. https://www.youtube.com/watch?v=rsrkAN43WSU → 'rsrkAN43WSU'
-//  Vimeo also works: set vimeo: '123456789' instead of youtube.
+//  VIDEOS: use the ID from the share link.
+//    YouTube  https://youtu.be/rsrkAN43WSU           → { youtube: 'rsrkAN43WSU' }
+//    Vimeo    https://vimeo.com/123456789            → { vimeo: '123456789' }
+//    Vimeo (unlisted) https://vimeo.com/123456789/ab12cd34ef → { vimeo: '123456789', hash: 'ab12cd34ef' }
 // ─────────────────────────────────────────────────────────────
 
 export const site = {
   name: 'GET Media Productions',
-  email: 'getmediaproductions@gmail.com',
+  email: 'hello@getmediaproductions.com',
   location: 'Kent, Ohio',
   region: 'Northeast Ohio',
 
-  // Paste a Formspree form endpoint here (free at formspree.io) so the
-  // contact form submits straight to your inbox. While it's empty, the
-  // form opens the visitor's email app with everything pre-filled.
+  // Paste a Formspree endpoint (free at formspree.io) so the contact form
+  // lands in your inbox. While empty, the form opens the visitor's email app.
   formEndpoint: '',
-
-  // Optional: a Calendly (or similar) link. When set, a "Book a call"
-  // button appears beside the contact form.
-  bookingUrl: '',
+  bookingUrl: '', // optional Calendly link → adds a "Book a call" button
 
   socials: {
     instagram: '', // e.g. 'https://instagram.com/getmediaproductions'
     facebook: '',
     linkedin: '',
-    youtube: '',
   },
 }
 
-export const hero = {
-  backgroundYoutube: 'AUWTdXhbiaw', // silent looping background
-  reelYoutube: 'rsrkAN43WSU',       // opens in the "Watch the reel" player
-  eyebrow: 'Video & Photo Production · Northeast Ohio',
-  headlineTop: 'Stories that',
-  headlineAccent: 'move people',
-  headlineBottom: 'to act.',
-  sub: 'Cinema-grade brand films, ad creative, and monthly content for businesses that are ready to be seen. One team from concept to final cut.',
+export const home = {
+  heroVideo: 'AUWTdXhbiaw', // silent looping background (YouTube)
+  reel: { youtube: 'rsrkAN43WSU' },
+  tagline: 'Video and Photo Production You Can Count On',
+  introTitle: 'Full-Service Production',
+  intro:
+    "We're a full-service production company based in Kent, Ohio, working with businesses, brands, and individuals across the region. From commercial brand content to wedding films to event coverage, every project is approached with a cinematic eye and a focus on what the audience actually feels watching it.",
+  introKicker: 'We bring the gear, the team, and the vision. You bring the story.',
 }
 
+// Portfolio categories → each gets its own page at #/portfolio/<slug>
+export const categories = [
+  {
+    slug: 'businesses',
+    name: 'Businesses',
+    title: 'Businesses & Events',
+    sub: 'Brand content and event coverage for businesses that mean it.',
+    intro:
+      "We partner with businesses and brands to produce content that actually performs, whether that's a brand video that lives on your homepage, event coverage that recaps a moment worth sharing, or testimonial content that does the selling for you.",
+  },
+  {
+    slug: 'weddings',
+    name: 'Weddings & Engagements',
+    title: 'Weddings & Engagements',
+    sub: 'Capturing the moments that matter most.',
+    intro:
+      'Every wedding is a film waiting to be made. We approach each one with the same cinematic eye we bring to every production, because the moments between the moments are the ones worth keeping.',
+  },
+  {
+    slug: 'films',
+    name: 'Films',
+    title: 'Films',
+    sub: 'Original narrative and documentary work.',
+    intro: 'Our own stories, made with the same crew and care we bring to every client.',
+  },
+]
+
+// ─── Projects ────────────────────────────────────────────────
+// Order here = order on the portfolio pages and the "next project" chain.
+// Each project gets its own page at #/work/<slug>.
+//
+//   cover:    thumbnail image for grids (optional; falls back to the first
+//             video's thumbnail, then a branded title card)
+//   parts:    one block per deliverable/campaign, rendered as
+//             "PROJECT 01 / 02…" sections like the Squarespace pages
+//   gallery:  photo projects (engagements, etc.)
+//   featured: true → shows in "Selected Work" on the home page
+export const projects = [
+  {
+    slug: 'durasilk',
+    name: 'DuraSilk',
+    category: 'businesses',
+    featured: true,
+    services: ['Brand Video', 'Product Launch', 'Ad Creative'],
+    tagline: 'Luxury performance salon wear for professional stylists, Kent, Ohio.',
+    client:
+      "DuraSilk Ltd is an Ohio-based brand specializing in high-quality salon wear: capes, aprons, robes, and professional tools designed for salon stylists. Founded in 2007, they've built a reputation for durability, style, and innovation in the professional haircare industry. They came to GET Media needing cinematic product launch content and ad creative that matched the premium feel of their brand.",
+    cover: '',
+    parts: [
+      {
+        title: '2Faced Collection Launch',
+        subtitle: 'Brand Video · Ad Creative · Product Launch',
+        video: { youtube: '' }, // ← "2Faced Hype Video | GET Media Productions"
+        details: [
+          ['Deliverables', '1 hero launch video, 10 short-form ad videos'],
+          ['Platforms', 'Instagram, Website, Facebook Ads'],
+          ['Shoot Days', '2 days'],
+          ['Cameras', 'Sony A7IV · Canon C70'],
+        ],
+        story:
+          'We worked directly with the DuraSilk team to concept and produce launch content for their 2Faced Collection, a new product line targeting professional salon stylists. Over two shoot days we produced a hero launch video and 10 short-form ad videos built specifically for Instagram, the DuraSilk website, and a Facebook ad campaign. Every deliverable was built with its placement in mind: scroll-stopping for social, conversion-focused for ads.',
+      },
+      {
+        title: 'Moulin Rouge Launch',
+        subtitle: 'Hero Video · Ad Creative · Website',
+        video: { vimeo: '' }, // ← "Moulin Rouge Hype Trailer | Durasilk"
+        details: [
+          ['Deliverables', '1 hero website video, short-form Facebook ad videos'],
+          ['Platforms', 'Website, Facebook Ads'],
+          ['Shoot Days', '1 day'],
+          ['Cameras', 'Canon C70'],
+        ],
+        story:
+          "For the Moulin Rouge collection, we produced a hero video built to anchor DuraSilk's website alongside short-form ad creative for Facebook. Shot in a single day on the Canon C70, the content was crafted to communicate the collection's aesthetic and drive traffic directly to the product pages.",
+      },
+    ],
+  },
+  {
+    slug: 'new-berlin-brewing',
+    name: 'New Berlin Brewing Company',
+    category: 'businesses',
+    featured: true,
+    services: ['Brand Video'],
+    tagline: '',
+    client: '',
+    parts: [{ title: 'Brand Film', subtitle: 'Brand Video', video: {}, details: [], story: '' }],
+  },
+  {
+    slug: 'equilibrium-pilates',
+    name: 'Equilibrium Pilates',
+    category: 'businesses',
+    featured: true,
+    services: ['Brand Video'],
+    tagline: '',
+    client: '',
+    parts: [{ title: 'Brand Film', subtitle: 'Brand Video', video: {}, details: [], story: '' }],
+  },
+  {
+    slug: 'petit-auto-wash',
+    name: 'Petit Auto Wash',
+    category: 'businesses',
+    services: ['Commercial'],
+    tagline: '',
+    client: '',
+    parts: [{ title: 'Commercial', subtitle: 'Commercial', video: {}, details: [], story: '' }],
+  },
+  {
+    slug: 'greater-cleveland-sports-commission',
+    name: 'Greater Cleveland Sports Commission',
+    category: 'businesses',
+    services: ['Event Coverage'],
+    tagline: '',
+    client: '',
+    parts: [{ title: 'Event Recap', subtitle: 'Event Coverage', video: {}, details: [], story: '' }],
+  },
+  {
+    slug: 'brittney-keith',
+    name: 'Brittney & Keith',
+    category: 'weddings',
+    services: ['Wedding Film'],
+    tagline: '',
+    parts: [{ title: 'Wedding Film', subtitle: 'Wedding Film', video: {}, details: [], story: '' }],
+  },
+  {
+    slug: 'madison-jamie',
+    name: 'Madison & Jamie',
+    category: 'weddings',
+    services: ['Wedding Film'],
+    tagline: '',
+    parts: [{ title: 'Wedding Film', subtitle: 'Wedding Film', video: {}, details: [], story: '' }],
+  },
+  {
+    slug: 'jenna-james',
+    name: 'Jenna & James',
+    category: 'weddings',
+    featured: true,
+    services: ['Engagement Photography'],
+    tagline: '',
+    cover: 'images/work/jenna-james.jpg',
+    gallery: ['images/work/jenna-james.jpg'],
+  },
+  {
+    slug: 'errol-kennedy',
+    name: 'Errol & Kennedy',
+    category: 'weddings',
+    services: ['Engagement Photography'],
+    tagline: '',
+    cover: 'images/work/errol-kennedy.jpg',
+    gallery: ['images/work/errol-kennedy.jpg'],
+  },
+  {
+    slug: 'message-failed',
+    name: 'Message Failed',
+    category: 'films',
+    services: ['Short Film'],
+    tagline: 'An original short film by GET Media Productions.',
+    parts: [{ title: 'Message Failed', subtitle: 'Short Film', video: {}, details: [], story: '' }],
+  },
+]
+
 export const clients = [
-  { name: 'DuraSilk', logo: 'images/clients/durasilk.png', tone: 'dark' },
-  { name: 'Equilibrium Pilates', logo: 'images/clients/eq-pilates.png', tone: 'dark' },
-  { name: 'New Berlin Brewing Company', logo: 'images/clients/new-berlin.png', tone: 'dark' },
-  { name: 'Raptor Hallow Sanctuary', logo: 'images/clients/raptor-hallow.png', tone: 'light' },
-  // Text-only until you add logo files:
+  { name: 'DuraSilk', logo: 'images/clients/durasilk.png' },
+  { name: 'Equilibrium Pilates', logo: 'images/clients/eq-pilates.png' },
+  { name: 'New Berlin Brewing Company', logo: 'images/clients/new-berlin.png' },
+  { name: 'Raptor Hallow Sanctuary', logo: 'images/clients/raptor-hallow.png', light: true },
   { name: 'Greater Cleveland Sports Commission' },
   { name: 'Petit Auto Wash' },
 ]
 
-// Categories drive the filter tabs on the Work section.
-export const workCategories = ['All', 'Brands', 'Events & Sports', 'Weddings', 'Films']
-
-export const work = [
-  {
-    title: 'DuraSilk: 2Faced Collection',
-    client: 'DuraSilk',
-    category: 'Brands',
-    tags: ['Product Launch', 'Ad Creative'],
-    youtube: '',
-    image: '',
-    caseStudy: true,
-  },
-  {
-    title: 'Equilibrium Pilates',
-    client: 'Equilibrium Pilates',
-    category: 'Brands',
-    tags: ['Brand Video'],
-    youtube: '',
-    image: '',
-  },
-  {
-    title: 'New Berlin Brewing',
-    client: 'New Berlin Brewing Company',
-    category: 'Brands',
-    tags: ['Brand Video'],
-    youtube: '',
-    image: '',
-  },
-  {
-    title: 'Petit Auto Wash',
-    client: 'Petit Auto Wash',
-    category: 'Brands',
-    tags: ['Commercial'],
-    youtube: '',
-    image: '',
-  },
-  {
-    title: 'Greater Cleveland Sports Commission',
-    client: 'GCSC',
-    category: 'Events & Sports',
-    tags: ['Event Coverage'],
-    youtube: '',
-    image: '',
-  },
-  {
-    title: 'Jenna & James',
-    client: 'Engagement',
-    category: 'Weddings',
-    tags: ['Engagement Photo'],
-    youtube: '',
-    image: 'images/work/jenna-james.jpg',
-  },
-  {
-    title: 'Errol & Kennedy',
-    client: 'Engagement',
-    category: 'Weddings',
-    tags: ['Engagement Photo'],
-    youtube: '',
-    image: 'images/work/errol-kennedy.jpg',
-  },
-  {
-    title: 'Message Failed',
-    client: 'Original Short Film',
-    category: 'Films',
-    tags: ['Short Film'],
-    youtube: '',
-    image: '',
-  },
-]
-
-export const caseStudy = {
-  client: 'DuraSilk',
-  tagline: 'Luxury performance salon wear for professional stylists, Kent, Ohio.',
-  brief:
-    "DuraSilk Ltd is an Ohio brand making salon wear (capes, aprons, robes, and professional tools) for working stylists. Founded in 2007, they've built a reputation for durability, style, and innovation in professional haircare. They came to GET Media needing cinematic launch content and ad creative that matched the premium feel of the brand.",
-  projects: [
-    {
-      number: '01',
-      title: '2Faced Collection Launch',
-      youtube: '',
-      stats: [
-        ['Deliverables', '1 hero launch video + 10 short-form ads'],
-        ['Platforms', 'Instagram · Website · Facebook Ads'],
-        ['Shoot', '2 days · Sony A7IV + Canon C70'],
-      ],
-      story:
-        'We concepted and produced launch content for a new product line aimed at professional stylists. Two shoot days yielded a hero film and ten short-form ads, each built for where it would run: scroll-stopping for social, conversion-focused for paid.',
-    },
-    {
-      number: '02',
-      title: 'Moulin Rouge Collection',
-      youtube: '',
-      stats: [
-        ['Deliverables', '1 hero website film + short-form ads'],
-        ['Platforms', 'Website · Facebook Ads'],
-        ['Shoot', '1 day · Canon C70'],
-      ],
-      story:
-        "A hero film to anchor DuraSilk's website, plus Facebook ad creative, all shot in a single day. The content communicates the collection's aesthetic and drives traffic straight to the product pages.",
-    },
-  ],
-}
-
 export const services = [
-  {
-    name: 'Brand Story Reel',
-    copy: 'A cinematic film that shows who you are and why it matters, built for your homepage, socials, and pitch decks. We handle concept, shoot, and edit.',
-  },
-  {
-    name: 'Commercial & Ad Creative',
-    copy: 'Product and campaign content cut for where it has to perform: hero spots, short-form ads, and vertical edits from the same shoot.',
-  },
-  {
-    name: 'Event & Sports Coverage',
-    copy: 'Full or half-day coverage with recap reels, highlights, and stills, all from one crew in one shoot.',
-  },
-  {
-    name: 'Aerial & Drone',
-    copy: 'Licensed drone work for properties, venues, events, and job sites. The establishing shot that makes everything else look bigger.',
-  },
-  {
-    name: 'Testimonial Video',
-    copy: 'Structured client stories that build trust and do the selling for you. Shot and edited to feel real, not corporate.',
-  },
-  {
-    name: 'Weddings & Engagements',
-    copy: 'Cinematic films and photography that capture what the day felt like, not just what it looked like.',
-  },
+  { name: 'Brand Video', copy: 'Story-driven commercial content built for your website, socials, and pitch. We handle concept, shoot, and edit.' },
+  { name: 'Commercial & Ad Content', copy: 'Product and brand content for ads, campaigns, and social, built around where it needs to perform.' },
+  { name: 'Event Coverage', copy: 'Full-day or half-day event videography and photography. Recap reels, highlights, and stills, all in one shoot.' },
+  { name: 'Testimonial Video', copy: 'Structured client testimonials that build trust and convert. Shot and edited to feel real, not corporate.' },
+  { name: 'Wedding Films', copy: 'Cinematic wedding and engagement films that capture what the day actually felt like, not just what it looked like.' },
+  { name: 'Aerial & Drone', copy: 'Drone footage for properties, venues, events, and job sites. The establishing shot that makes everything else look bigger.' },
 ]
 
 export const retainer = {
-  eyebrow: 'For businesses that post every week',
   title: 'Monthly Content Program',
   copy:
-    "One planned shoot day turns into a month of polished video. We batch-produce your content, cut it for every platform, and deliver on a calendar, so you're never scrambling for something to post.",
-  points: [
-    'One batched shoot day per month',
-    'Hero edit, short cutdowns, and vertical clips',
-    'Content calendar planned with you',
-    'Same crew and visual style every month',
-  ],
+    "For businesses that need to post every week. One planned shoot day turns into a month of polished video: a hero edit, short cutdowns, and vertical clips, delivered on a calendar so you're never scrambling for content.",
 }
 
 export const process = [
-  { step: '01', title: 'Discovery Call', copy: 'We talk goals, audience, and where the content will live. No pitch decks, just a conversation.' },
-  { step: '02', title: 'Creative Plan', copy: 'Concept, script, shot list, and schedule. You know exactly what we are making before a camera rolls.' },
-  { step: '03', title: 'Production', copy: 'Our crew shows up with cinema cameras, lighting, audio, and drone. We keep it efficient and painless for your team.' },
-  { step: '04', title: 'Delivery', copy: 'Edited, color-graded, and cut for every platform. Most projects land in 2–4 weeks.' },
+  { title: 'Discovery Call', copy: 'We talk goals, audience, and where the content will live.' },
+  { title: 'Creative Plan', copy: 'Concept, script, shot list, and schedule, locked before a camera rolls.' },
+  { title: 'Production', copy: 'Cinema cameras, lighting, audio, and drone. Efficient and painless for your team.' },
+  { title: 'Delivery', copy: 'Edited, color-graded, and cut for every platform. Most projects land in 2–4 weeks.' },
 ]
 
 export const reasons = [
-  {
-    title: "You work with us, not a crew you've never met",
-    copy: "We don't outsource shoots or hand your project off. From the first call to final delivery, we're your team.",
-  },
-  {
-    title: 'Cinema-grade production. Regional pricing.',
-    copy: 'Professional gear, cinematic technique, and polished editing, without big-city agency rates.',
-  },
-  {
-    title: 'Video and photo. One team.',
-    copy: 'Skip hiring a video crew and a separate photographer. One cohesive shoot means the same vision and a consistent style.',
-  },
-  {
-    title: "We think about what it's for",
-    copy: "Every project starts with your goals. We don't just make something that looks good; we make content that does its job.",
-  },
+  { title: "You Work With Us, Not a Crew You've Never Met", copy: "When you hire GET Media, you get us. We don't outsource shoots or hand your project to someone you've never met. From call to final delivery, we're your team." },
+  { title: 'Cinema-Grade Production. Regional Pricing.', copy: 'High-end video and photo production (professional gear, cinematic techniques, polished editing) without the inflated rates of big-city agencies.' },
+  { title: 'Video and Photo. One Team.', copy: 'Instead of hiring a video crew and a separate photographer, you get both from us in one cohesive shoot. Same vision, same style, better consistency.' },
+  { title: "We Think About What It's For.", copy: "Every project starts with a conversation about goals. We don't just make something that looks good; we make content that does what you need it to do." },
 ]
 
 export const faqs = [
-  {
-    q: 'What services does GET Media offer?',
-    a: 'Brand videos, commercial and ad content, event and sports coverage, aerial drone footage, testimonial videos, wedding and engagement films, and documentary-style content.',
-  },
-  {
-    q: 'Where are you based and where do you work?',
-    a: "We're based in Kent, Ohio and work throughout Northeast Ohio, including Akron, Cleveland, and the surrounding areas. We travel for the right project.",
-  },
-  {
-    q: 'How much does a project cost?',
-    a: "Every project is scoped to what you actually need, so we don't publish one-size-fits-all pricing. Tell us about your project and we'll send a clear quote, usually within two business days.",
-  },
-  {
-    q: "What's your turnaround time?",
-    a: "Most commercial and brand projects are delivered in 2–4 weeks depending on scope. We'll set the timeline before we start.",
-  },
-  {
-    q: 'Do you work with small businesses?',
-    a: "Absolutely. Some of our best work has been with local businesses who just needed someone to finally show the world what they're doing.",
-  },
-  {
-    q: 'Can you help with creative direction?',
-    a: "Yes. If you come to us with a goal and no idea how to get there, we handle scripting, shot planning, and concept development as part of the process.",
-  },
+  { q: 'What services does GET Media offer?', a: 'We produce brand videos, commercial content, event coverage, testimonial videos, wedding and engagement films, and documentary-style content for businesses and individuals.' },
+  { q: 'Where are you based and where do you work?', a: "We're based in Kent, Ohio and regularly work throughout Northeast Ohio: Akron, Cleveland, and surrounding areas. We also travel for the right project." },
+  { q: 'Do you offer custom packages?', a: "Every project is scoped individually. We don't do one-size-fits-all pricing because not every project has the same needs." },
+  { q: "What's your turnaround time?", a: "Most commercial and brand projects are delivered within 2–4 weeks depending on scope. We'll set clear timelines before we start." },
+  { q: 'Do you work with small businesses?', a: "Absolutely. Some of our best work has been with local businesses who just needed someone to finally show the world what they're doing." },
+  { q: 'Can you help with creative direction?', a: 'Yes. If you come to us with just a goal and no idea how to get there, we can help. We handle scripting, shot planning, and concept development as part of the process.' },
 ]
 
-export const projectTypes = [
-  'Brand Story Reel',
-  'Commercial / Ad Creative',
-  'Monthly Content Program',
-  'Event or Sports Coverage',
-  'Aerial / Drone',
-  'Wedding or Engagement',
-  'Something else',
-]
-
+export const projectTypes = ['Brand Video', 'Commercial / Ads', 'Monthly Content', 'Event Coverage', 'Wedding / Engagement', 'Something else']
 export const budgets = ['Under $1,000', '$1,000 – $2,500', '$2,500 – $5,000', '$5,000+', 'Not sure yet']

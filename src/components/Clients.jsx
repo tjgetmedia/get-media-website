@@ -1,21 +1,19 @@
 import { clients } from '../data/site.js'
 
 export default function Clients() {
-  // Rendered twice so the marquee loops seamlessly.
   const row = (hidden) =>
     clients.map((c, i) => (
       <li key={`${hidden}-${i}`} className="clients__item" aria-hidden={hidden || undefined}>
         {c.logo ? (
-          <img src={c.logo} alt={hidden ? '' : c.name} className={`clients__logo clients__logo--${c.tone}`} loading="lazy" />
+          <img src={c.logo} alt={hidden ? '' : c.name} className={`clients__logo ${c.light ? 'clients__logo--light' : ''}`} loading="lazy" />
         ) : (
           <span className="clients__word">{c.name}</span>
         )}
       </li>
     ))
-
   return (
-    <section className="clients" aria-label="Clients we've worked with">
-      <p className="eyebrow clients__label">Trusted by brands across Northeast Ohio</p>
+    <section className="clients" aria-label="Previous clients">
+      <h2 className="section-title reveal">Previous Clients</h2>
       <div className="clients__track">
         <ul className="clients__row">
           {row(false)}

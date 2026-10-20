@@ -1,63 +1,79 @@
 import { useEffect, useState, useCallback } from 'react'
+import { useRoute } from './router.jsx'
+import { projects, categories } from './data/site.js'
 import Nav from './components/Nav.jsx'
-import Hero from './components/Hero.jsx'
-import Clients from './components/Clients.jsx'
-import Work from './components/Work.jsx'
-import CaseStudy from './components/CaseStudy.jsx'
-import Services from './components/Services.jsx'
-import Process from './components/Process.jsx'
-import Why from './components/Why.jsx'
-import FAQ from './components/FAQ.jsx'
-import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
-import MediaModal from './components/MediaModal.jsx'
 import StickyCTA from './components/StickyCTA.jsx'
+import MediaModal from './components/MediaModal.jsx'
+import Home from './pages/Home.jsx'
+import Portfolio from './pages/Portfolio.jsx'
+import Project from './pages/Project.jsx'
+import Services from './pages/Services.jsx'
+import About from './pages/About.jsx'
+import ContactPage from './pages/ContactPage.jsx'
+import NotFound from './pages/NotFound.jsx'
+
+const TITLE = 'GET Media Productions'
 
 export default function App() {
-  // One shared player for every video and photo on the page.
+  const path = useRoute()
   const [media, setMedia] = useState(null)
   const openMedia = useCallback((m) => setMedia(m), [])
   const closeMedia = useCallback(() => setMedia(null), [])
 
-  // Fade-up on scroll for anything with the .reveal class.
+  const [, section, slug] = path.split('/')
+  let page
+  let title = `${TITLE} | Video & Photo Production in Kent, Ohio`
+
+  if (path === '/') page = <Home />
+  else if (section === 'portfolio') {
+    const cat = categories.find((c) => c.slug === slug) || null
+    page = <Portfolio category={cat} />
+    title = `${cat ? cat.title : 'Portfolio'} | ${TITLE}`
+  } else if (section === 'work') {
+    const p = projects.find((x) => x.slug === slug)
+    page = p ? <Project project={p} onOpen={openMedia} /> : <NotFound />
+    if (p) title = `${p.name} | ${TITLE}`
+  } else if (section === 'services') {
+    page = <Services />
+    title = `Services | ${TITLE}`
+  } else if (section === 'about') {
+    page = <About />
+    title = `About | ${TITLE}`
+  } else if (section === 'contact') {
+    page = <ContactPage />
+    title = `Contact | ${TITLE}`
+  } else page = <NotFound />
+
+  useEffect(() => {
+    document.title = title
+  }, [title])
+
+  // Fade-up on scroll for anything with .reveal (re-scans on page change).
   useEffect(() => {
     const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
+      (es) =>
+        es.forEach((e) => {
           if (e.isIntersecting) {
             e.target.classList.add('is-visible')
             io.unobserve(e.target)
           }
         }),
-      { rootMargin: '0px 0px -8% 0px' }
+      { rootMargin: '0px 0px -6% 0px' }
     )
-    const watch = () => document.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => io.observe(el))
-    watch()
-    const mo = new MutationObserver(watch)
-    mo.observe(document.body, { childList: true, subtree: true })
+    const id = requestAnimationFrame(() => document.querySelectorAll('.reveal').forEach((el) => io.observe(el)))
     return () => {
+      cancelAnimationFrame(id)
       io.disconnect()
-      mo.disconnect()
     }
-  }, [])
+  }, [path])
 
   return (
     <>
-      <a className="skip-link" href="#main">Skip to content</a>
-      <Nav />
-      <main id="main">
-        <Hero onPlay={openMedia} />
-        <Clients />
-        <Work onOpen={openMedia} />
-        <CaseStudy onOpen={openMedia} />
-        <Services />
-        <Process />
-        <Why />
-        <FAQ />
-        <Contact />
-      </main>
+      <Nav path={path} />
+      <main key={path} className="page">{page}</main>
       <Footer />
-      <StickyCTA />
+      <StickyCTA hidden={section === 'contact'} />
       <MediaModal media={media} onClose={closeMedia} />
     </>
   )

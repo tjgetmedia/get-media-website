@@ -1,23 +1,35 @@
 # GET Media Productions: Website
 
-A fast, single-page React site built to show off the work and turn visitors into inquiries.
+A fast, multi-page React site built to show off the work and turn visitors into inquiries.
 It uses Vite and React, has no UI framework, and deploys to GitHub Pages automatically on every push.
+
+## Pages
+
+| Page | URL |
+|---|---|
+| Home | `/#/` |
+| Portfolio by category | `/#/portfolio/businesses`, `/#/portfolio/weddings`, `/#/portfolio/films` |
+| Project page (one per client) | `/#/work/durasilk`, `/#/work/new-berlin-brewing`, … |
+| Services · About · Contact | `/#/services`, `/#/about`, `/#/contact` |
+
+URLs use `#/` so every page works on GitHub Pages with no server setup and survives a refresh.
 
 ## Edit content (no coding needed)
 
-Everything lives in **`src/data/site.js`**: copy, projects, services, FAQ, email, and the form options.
+Everything lives in **`src/data/site.js`**.
 
-| To do this | Change this in `site.js` |
-|---|---|
-| Add a video to a project | `youtube: 'VIDEO_ID'` (or `vimeo: '123456789'`) |
-| Add a photo to a project | Put the image in `public/images/work/` and set `image: 'images/work/file.jpg'` |
-| Add a new project | Copy one block in the `work` list and change it |
-| Add the DuraSilk films | `caseStudy.projects[].youtube` |
-| Change the hero background or reel | `hero.backgroundYoutube` / `hero.reelYoutube` |
-| Add a client logo | Put a transparent PNG in `public/images/clients/` and add `logo:` (use `tone: 'dark'` for black logos) |
-| Social links | `site.socials` (empty links stay hidden) |
+**Add a client project:** copy a block in `projects`, give it a unique `slug` (that becomes its URL), and fill in:
+- `category`: `businesses`, `weddings` or `films`
+- `services`: the gold line under the title, e.g. `['Brand Video', 'Ad Creative']`
+- `tagline` and `client`: the subtitle and "The Client" paragraph
+- `parts`: one block per deliverable. Two or more parts show the "PROJECT 01 / 02" headers like the DuraSilk page. Each part has `video`, `details` (the gold label list), and `story` ("The Work")
+- `gallery`: a list of photos for photo projects
+- `featured: true` shows the project in "Selected Work" on the home page
 
-Projects with no video or photo yet show a branded gold title card, so the grid never looks empty.
+**Videos:** `video: { youtube: 'ID' }` or `video: { vimeo: '123456789' }`. For an unlisted Vimeo link (`vimeo.com/123456789/ab12cd34ef`), add `hash: 'ab12cd34ef'`.
+Project cards use the first video's thumbnail automatically, or set `cover: 'images/work/file.jpg'`.
+
+Anything without a video yet shows a gold "Film coming soon" title card.
 
 ## Make the contact form deliver to your inbox
 
@@ -60,7 +72,9 @@ Before you switch DNS, make sure your email (MX records) is copied over so mail 
 ```
 src/
   data/site.js        ← all content
-  components/         ← one file per section
+  pages/              ← Home, Portfolio, Project, Services, About, Contact
+  components/         ← shared pieces (nav, footer, video player, cards, form)
+  router.jsx          ← tiny hash router (no extra dependencies)
   styles.css          ← brand tokens at the top (charcoal, gold, fonts)
 public/images/        ← logo, client logos, team and project photos
 .github/workflows/    ← auto-deploy to GitHub Pages
