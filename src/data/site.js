@@ -35,9 +35,9 @@ export const hero = {
   backgroundYoutube: 'AUWTdXhbiaw', // silent looping background
   reelYoutube: 'rsrkAN43WSU',       // opens in the "Watch the reel" player
   eyebrow: 'Video & Photo Production · Northeast Ohio',
-  headlineTop: 'Stories that',
-  headlineAccent: 'move people',
-  headlineBottom: 'to act.',
+  headlineTop: 'Your Story',
+  headlineAccent: 'Told like',
+  headlineBottom: 'it matters.',
   sub: 'Cinema-grade brand films, ad creative, and monthly content for businesses that are ready to be seen. One team from concept to final cut.',
 }
 
